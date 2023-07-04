@@ -2,8 +2,8 @@ import NextAuth, { AuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { compare } from "bcrypt";
+// import { PrismaAdapter } from "@next-auth/prisma-adapter";
+// import { compare } from "bcrypt";
 import prismadb from "@/lib/prismadb";
 
 export const authOptions: AuthOptions = {
@@ -44,14 +44,14 @@ export const authOptions: AuthOptions = {
           throw new Error("Email does not exist");
         }
 
-        const isCorrectPassword = await compare(
-          credentials.password,
-          user.hashedPassword
-        );
+        // const isCorrectPassword = await compare(
+        //   credentials.password,
+        //   user.hashedPassword
+        // );
 
-        if (!isCorrectPassword) {
-          throw new Error("Incorrect password");
-        }
+        // if (!isCorrectPassword) {
+        //   throw new Error("Incorrect password");
+        // }
 
         return user;
       },
@@ -61,7 +61,7 @@ export const authOptions: AuthOptions = {
     signIn: "/auth",
   },
   debug: process.env.NODE_ENV === "development",
-  adapter: PrismaAdapter(prismadb),
+//   adapter: PrismaAdapter(prismadb),
   session: { strategy: "jwt" },
   jwt: {
     secret: process.env.NEXTAUTH_JWT_SECRET,
